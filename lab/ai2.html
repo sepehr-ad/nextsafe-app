@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; connect-src 'self' https://huggingface.co https://*.huggingface.co https://*.hf.co https://*.xethub.hf.co https://raw.githubusercontent.com; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>AI2 phone reading lab</title>
+    <link rel="stylesheet" href="ai0.css" />
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Private engineering gate · AI2 · lab version 5</p>
+      <h1>Can a small AI read the message on this phone?</h1>
+      <p class="lede">
+        This unlisted test loads the same small Qwen model and the same
+        instructions the app would use, then reads twelve fixed synthetic
+        messages on this phone with WebGPU, twice: first with a short prompt,
+        then with the app's full prompt. Six are scams and six are ordinary
+        messages, including warnings that say "never share your code". It does
+        not accept or send your messages.
+      </p>
+
+      <section class="gate" aria-labelledby="gate-title">
+        <h2 id="gate-title">Pass conditions</h2>
+        <ul>
+          <li>The model loads on this phone.</li>
+          <li>Each message: 8 seconds or less.</li>
+          <li>Scams: the key request is found in at least 5 of 6.</li>
+          <li>Ordinary messages: a false request is reported in at most 1 of 6.</li>
+        </ul>
+      </section>
+
+      <section class="consent" aria-labelledby="before-title">
+        <h2 id="before-title">Before you start</h2>
+        <p>
+          Use Wi-Fi. The model download is about 335 MB the first time.
+          The phone needs at least 1 GB of free storage, or the browser may
+          delete the model and download it again.
+          Keep this tab open and the screen on until it says "Run complete"
+          (24 readings; this can take 5 to 10 minutes).
+        </p>
+        <label>
+          <input id="consent" type="checkbox" />
+          I understand this is a benchmark using fixed synthetic text only.
+        </label>
+        <button id="run" type="button" disabled>Run the test</button>
+        <p id="overall-status" class="status" role="status" aria-live="polite">Waiting to start.</p>
+        <progress id="progress" max="100" value="0"></progress>
+      </section>
+
+      <section aria-labelledby="device-title">
+        <h2 id="device-title">This device</h2>
+        <pre id="device">Checking…</pre>
+      </section>
+
+      <section aria-labelledby="report-title">
+        <h2 id="report-title">Copy the complete report</h2>
+        <p>When it says "Run complete" (or a failure), copy this text and send it back unchanged.
+        If nothing moves for 3 minutes, copy it anyway: the report keeps a timed trail.</p>
+        <button id="copy-report" type="button" disabled>Copy report</button>
+        <textarea id="report" rows="18" readonly spellcheck="false"></textarea>
+      </section>
+    </main>
+    <script src="../engine/qwen.js?v=2"></script>
+    <script type="module" src="ai2.js?v=5"></script>
+  </body>
+</html>

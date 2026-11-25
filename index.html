@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#073b3a" />
+    <meta name="description" content="The next safe action during a scam incident in the UAE" />
+    <meta name="amanstep-runtime" content="static" />
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self' 'wasm-unsafe-eval'; img-src 'self' data:; connect-src 'self' https://huggingface.co https://*.huggingface.co https://*.hf.co https://*.xethub.hf.co https://raw.githubusercontent.com; object-src 'none'; base-uri 'none'; form-action 'self'" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=34" />
+    <title>AmanStep — UAE Scam Emergency &amp; Recovery Agent</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content" data-i18n="skipToContent">Skip to content</a>
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="AmanStep home">
+        <img src="icon.svg" alt="" width="42" height="42" />
+        <div>
+          <strong>AmanStep</strong>
+          <span data-i18n="brandSubtitle">Scam emergency &amp; recovery</span>
+        </div>
+      </a>
+      <div class="header-actions">
+        <span class="privacy-chip" data-i18n="privateByDesign">Private by design</span>
+        <details class="settings-menu">
+          <summary data-i18n="settingsLabel">Settings</summary>
+          <div class="settings-panel">
+            <p id="private-ai-setting"><strong data-i18n="privateAILabel">Private AI:</strong> <span id="private-ai-status" role="status" aria-live="polite"></span></p>
+          </div>
+        </details>
+        <label class="language">
+          <span class="sr-only">Language</span>
+          <select id="language" aria-label="Language">
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <p id="guidance-status" class="guidance-status" role="status" aria-live="polite" hidden></p>
+      <p id="connection-status" class="connection-status" role="status" aria-live="polite" hidden></p>
+      <section id="home-view" class="home-view">
+        <section id="resume-case" class="resume-case" aria-labelledby="resume-case-title" hidden>
+          <div>
+            <h2 id="resume-case-title" data-i18n="resumeTitle">Continue your safety plan</h2>
+            <p data-i18n="resumeBody">A structured plan is saved on this device for up to four hours. The suspicious message is not saved.</p>
+          </div>
+          <button id="resume-case-button" type="button" class="primary" data-i18n="resumeAction">Continue plan</button>
+        </section>
+        <section id="vault-resume" class="resume-case vault-resume" aria-labelledby="vault-resume-title" hidden>
+          <div>
+            <h2 id="vault-resume-title" data-i18n="vaultResumeTitle">Open your encrypted saved case</h2>
+            <p><span data-i18n="vaultResumeBody">Enter the passphrase you created. It never leaves this device.</span> <span id="vault-home-expiry"></span></p>
+            <form id="vault-unlock-form" class="vault-inline-form">
+              <label for="vault-unlock-passphrase" data-i18n="vaultPassphraseLabel">Case passphrase</label>
+              <input id="vault-unlock-passphrase" type="password" minlength="12" maxlength="128" autocomplete="current-password" required />
+              <button type="submit" class="primary" data-i18n="vaultUnlock">Open saved case</button>
+            </form>
+            <p id="vault-home-status" class="status" role="status" aria-live="polite"></p>
+          </div>
+          <button id="vault-home-delete" type="button" class="secondary danger-outline" data-i18n="vaultDelete">Delete saved case</button>
+        </section>
+        <details class="vault-import">
+          <summary data-i18n="vaultImportTitle">Have an encrypted AmanStep backup?</summary>
+          <p data-i18n="vaultImportBody">Importing stores only the encrypted package. You still need its passphrase to open it.</p>
+          <label for="vault-import-file" class="secondary file-button" data-i18n="vaultImport">Choose encrypted backup</label>
+          <input id="vault-import-file" type="file" accept="application/json,.json" />
+          <p id="vault-import-status" class="status" role="status" aria-live="polite"></p>
+        </details>
+        <section class="journey-panel home-choice-panel" aria-labelledby="journey-heading">
+          <h1 id="journey-heading" data-i18n="heroTitle">What is happening right now?</h1>
+          <div class="journey-grid">
+            <button class="journey-card urgent" data-situation="active_call" data-incident-type="unknown">
+              <span class="journey-icon danger" aria-hidden="true">!</span>
+              <span>
+                <strong data-i18n="callTitle">Someone is pressuring me now</strong>
+              </span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </button>
+            <button class="journey-card" data-situation="checking" data-incident-type="unknown">
+              <span class="journey-icon calm" aria-hidden="true">?</span>
+              <span>
+                <strong data-i18n="checkingTitle">Check a message or link</strong>
+              </span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </button>
+            <button class="journey-card" data-situation="shared_data" data-incident-type="credentials_or_otp">
+              <span class="journey-icon warning" aria-hidden="true">×</span>
+              <span>
+                <strong data-i18n="sharedTitle">I shared a code or my details</strong>
+              </span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </button>
+            <button class="journey-card" data-situation="money_sent" data-incident-type="bank_transfer">
+              <span class="journey-icon warning money" aria-hidden="true">AED</span>
+              <span>
+                <strong data-i18n="moneyTitle">I sent money</strong>
+              </span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+          <p id="home-status" class="status" role="status" aria-live="polite"></p>
+        </section>
+        <section id="agent-intake-home" class="agent-intake-home" aria-labelledby="agent-intake-home-title" hidden>
+          <h2 id="agent-intake-home-title" data-i18n="agentStartTitle">Tell AmanStep what happened</h2>
+          <p data-i18n="agentStartBody">Review the exact text before choosing to send it. Avoid entering security codes, passwords or account numbers.</p>
+          <form id="agent-intake-home-form" class="agent-intake-home-form">
+            <label for="agent-intake-home-text" data-i18n="agentStartLabel">What happened?</label>
+            <textarea id="agent-intake-home-text" rows="4" maxlength="4000" autocomplete="off" required data-i18n-placeholder="agentStartPlaceholder" placeholder="For example: I sent money after someone claiming to be my bank called me..."></textarea>
+            <button type="submit" class="primary" data-i18n="agentStartReview">Review before sending</button>
+          </form>
+          <p id="agent-intake-home-status" class="status" role="status" aria-live="polite"></p>
+        </section>
+      </section>
+
+      <section id="case-view" class="case-view" hidden>
+        <button id="back-home" class="text-button" data-i18n="startOver">← Start over</button>
+        <div class="case-shell">
+          <header class="case-header">
+            <div>
+              <p class="eyebrow" data-i18n="privateCase">Private, temporary case</p>
+              <h1 data-i18n="caseTitle">Your safety plan</h1>
+            </div>
+            <span id="stage-badge" class="stage-badge"></span>
+          </header>
+
+          <ol id="case-progress" class="case-progress" data-i18n-aria-label="caseProgressLabel" aria-label="Case progress">
+            <li data-case-step="0"><span>1</span><strong data-i18n="progressPause">Pause pressure</strong></li>
+            <li data-case-step="1"><span>2</span><strong data-i18n="progressProtect">Protect access</strong></li>
+            <li data-case-step="2"><span>3</span><strong data-i18n="progressRecover">Recover</strong></li>
+            <li data-case-step="3"><span>4</span><strong data-i18n="progressFollow">Follow up</strong></li>
+          </ol>
+
+          <section id="next-action" class="next-action" aria-live="polite"></section>
+
+          <section id="analysis-section" class="flow-section analysis-section" data-section="01" hidden>
+            <div class="section-heading">
+              <h2 data-i18n="checkHeading">Check the suspicious content</h2>
+              <p data-i18n="checkPrivacy">Paste or share text. Links are parsed as text only and are never visited.</p>
+            </div>
+            <form id="analysis-form">
+              <label for="message" data-i18n="messageLabel">Message or link</label>
+              <textarea id="message" rows="7" maxlength="20000" required data-i18n-placeholder="messagePlaceholder" placeholder="Paste the full suspicious message"></textarea>
+              <button type="submit" class="primary" data-i18n="analyseButton">Analyse without opening</button>
+            </form>
+            <div id="analysis-status" class="status" role="status" aria-live="polite"></div>
+            <section id="action-feed" class="action-feed" aria-labelledby="action-feed-title" hidden></section>
+            <div id="analysis-result" class="analysis-result" hidden></div>
+          </section>
+
+          <section id="ask-section" class="flow-section ask-section" aria-labelledby="ask-heading" hidden>
+            <div class="section-heading">
+              <h2 id="ask-heading" data-i18n="askHeading">Ask AmanStep</h2>
+              <p data-i18n="askBody">Tell AmanStep what happened, in your own words. Nothing is sent until you see the exact text and tap Send.</p>
+            </div>
+            <div id="ask-panel" class="ask-panel" aria-live="polite"></div>
+          </section>
+
+          <section id="intake-section" class="flow-section intake-section" data-section="02" hidden>
+            <div class="section-heading inline-heading">
+              <div>
+                <h2 data-i18n="intakeHeading">A few recovery details</h2>
+                <p data-i18n="intakeBody">One question at a time. The urgent action above never waits for these details.</p>
+              </div>
+              <span id="intake-progress" class="progress-label"></span>
+            </div>
+            <div id="intake-question" class="intake-question" aria-live="polite"></div>
+            <p id="intake-status" class="status" role="status" aria-live="polite"></p>
+          </section>
+
+          <section id="task-section" class="flow-section task-section" data-section="03">
+            <div class="section-heading inline-heading">
+              <div>
+                <h2 data-i18n="planHeading">Your ordered plan</h2>
+                <p data-i18n="planBody">Mark a step only after you actually complete it.</p>
+              </div>
+              <span id="task-progress" class="progress-label"></span>
+            </div>
+            <div id="task-list" class="task-list"></div>
+          </section>
+
+          <section id="directory-section" class="flow-section directory-section" data-section="04">
+            <div class="section-heading">
+              <h2 data-i18n="directoryHeading">Verify through a route independent of the message</h2>
+              <p data-i18n="directoryBody">These routes were manually reviewed. Choose the organisation that actually applies to your case.</p>
+            </div>
+            <div id="directory-list" class="directory-list"></div>
+          </section>
+
+          <section id="change-section" class="flow-section change-section" data-section="05">
+            <div class="section-heading">
+              <h2 data-i18n="changedHeading">Did the situation change?</h2>
+              <p data-i18n="changedBody">Tell AmanStep so the next action can change too.</p>
+            </div>
+            <div id="event-actions" class="event-actions"></div>
+          </section>
+
+          <section id="trusted-section" class="flow-section trusted-section" data-section="06">
+            <div class="section-heading">
+              <h2 data-i18n="trustedHeading">Trusted contact</h2>
+              <p data-i18n="trustedBody">This is not monitoring. Your contact cannot read your messages or location. They receive only a status alert you explicitly send.</p>
+            </div>
+            <div id="trusted-owner-state" class="trusted-panel">
+              <p data-i18n="coercionStop">If someone is forcing you to pair, stop here. You can remove either device without the other person’s permission.</p>
+              <label class="consent-check"><input id="pairing-consent" type="checkbox" /> <span data-i18n="pairingConsent">I chose this person freely. No one is pressuring me to add them.</span></label>
+              <button id="create-pairing" type="button" class="secondary" data-i18n="createPairing" disabled>Create a private pairing code</button>
+              <p id="trusted-owner-status" class="status" role="status" aria-live="polite"></p>
+            </div>
+          </section>
+
+          <section id="evidence-section" class="flow-section evidence-section" data-section="07" hidden>
+            <div class="section-heading">
+              <h2 data-i18n="evidenceHeading">Prepare a factual evidence draft</h2>
+              <p data-i18n="evidenceBody">Do not enter passwords or security codes. Nothing is submitted automatically.</p>
+            </div>
+            <form id="evidence-form" class="evidence-form">
+              <label><span data-i18n="amountLabel">Amount and currency</span><input id="evidence-amount" maxlength="80" placeholder="AED 500" /></label>
+              <label><span data-i18n="referenceLabel">Transaction reference</span><input id="evidence-reference" maxlength="120" /></label>
+              <label class="wide"><span data-i18n="summaryLabel">Brief factual summary</span><textarea id="evidence-summary" rows="4" maxlength="1000"></textarea></label>
+              <button type="submit" class="secondary" data-i18n="downloadDraft">Create review draft</button>
+            </form>
+            <p id="evidence-status" class="status" role="status" aria-live="polite"></p>
+            <div id="evidence-output" class="evidence-output" hidden>
+              <article class="report-draft-card">
+                <h3 data-i18n="bankDraftHeading">Bank fraud-dispute draft</h3>
+                <pre id="bank-draft-preview" tabindex="0"></pre>
+                <button id="copy-bank-draft" type="button" class="secondary small" data-i18n="copyBankDraft">Copy bank draft</button>
+              </article>
+              <article class="report-draft-card">
+                <h3 data-i18n="ecrimeDraftHeading">eCrime-ready incident summary</h3>
+                <pre id="ecrime-draft-preview" tabindex="0"></pre>
+                <button id="copy-ecrime-draft" type="button" class="secondary small" data-i18n="copyEcrimeDraft">Copy eCrime summary</button>
+              </article>
+              <details class="full-evidence-pack">
+                <summary data-i18n="fullEvidencePack">View full evidence JSON</summary>
+                <pre id="evidence-preview" tabindex="0"></pre>
+              </details>
+              <div class="evidence-actions">
+                <button id="copy-evidence" type="button" class="secondary" data-i18n="copyDraft">Copy draft</button>
+                <a id="evidence-download-link" class="primary download-link" href="#" download data-i18n="downloadNow">Download JSON</a>
+              </div>
+            </div>
+          </section>
+
+          <section id="followup-section" class="flow-section followup-section" data-section="08" hidden>
+            <div class="section-heading">
+              <h2 data-i18n="followupHeading">Keep recovery moving</h2>
+              <p data-i18n="followupBody">Choose only the reminders you want on this device.</p>
+            </div>
+            <div class="followup-controls">
+              <button id="enable-followups" type="button" class="primary" data-i18n="enableFollowups">Enable local reminders</button>
+              <button id="disable-followups" type="button" class="secondary" data-i18n="disableFollowups" hidden>Turn off and clear reminders</button>
+            </div>
+            <p class="followup-limit" data-i18n="followupLimit">System alerts work while the app is active. If the browser closes, overdue reminders appear the next time AmanStep opens. Reliable closed-app delivery still requires Web Push.</p>
+            <p id="followup-status" class="status" role="status" aria-live="polite"></p>
+            <div id="followup-list" class="followup-list"></div>
+          </section>
+
+          <section id="vault-section" class="flow-section vault-section" data-section="09">
+            <div class="section-heading">
+              <h2 data-i18n="vaultHeading">Save and return later</h2>
+              <p data-i18n="vaultBody">Optional: encrypt this structured case on this device for 30 days. The passphrase and key are never stored, and AmanStep cannot recover them.</p>
+            </div>
+            <form id="vault-save-form" class="vault-form">
+              <label for="vault-passphrase"><span data-i18n="vaultNewPassphrase">Create a passphrase (at least 12 characters)</span><input id="vault-passphrase" type="password" minlength="12" maxlength="128" autocomplete="new-password" required /></label>
+              <label for="vault-passphrase-confirm"><span data-i18n="vaultConfirmPassphrase">Confirm the passphrase</span><input id="vault-passphrase-confirm" type="password" minlength="12" maxlength="128" autocomplete="new-password" required /></label>
+              <button type="submit" class="primary" data-i18n="vaultSave">Encrypt and save for 30 days</button>
+            </form>
+            <div id="vault-saved-actions" class="vault-saved-actions" hidden>
+              <p id="vault-case-expiry"></p>
+              <button id="vault-export" type="button" class="secondary" data-i18n="vaultExport">Download encrypted backup</button>
+              <button id="vault-case-delete" type="button" class="secondary danger-outline" data-i18n="vaultDelete">Delete saved case</button>
+            </div>
+            <p id="vault-status" class="status" role="status" aria-live="polite"></p>
+          </section>
+
+          <div class="case-privacy">
+            <strong data-i18n="casePrivacyTitle">What AmanStep stores for this prototype</strong>
+            <p data-i18n="casePrivacyBody">Structured case tasks stay on this device for up to four hours; the raw message is never added. Only if you choose encrypted save, an encrypted structured copy remains on this device for up to 30 days. Its passphrase and key are not stored or recoverable by AmanStep. Optional follow-ups store only a closed reminder kind, task id and time until dismissed or turned off. Nothing is reported or sent automatically.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="emergency-view" class="emergency-view" aria-labelledby="emergency-sentence" hidden>
+        <h1 id="emergency-sentence" data-i18n="emergencySentence">Say: “I’m ending this call. I will contact the organisation myself.”</h1>
+        <div id="emergency-countdown" class="emergency-countdown" role="timer" aria-live="polite"><span id="emergency-count">3</span></div>
+        <div class="emergency-actions">
+          <button id="emergency-hang" type="button" data-i18n="emergencyHang">Hang up &amp; verify</button>
+          <button id="emergency-bank" type="button" data-i18n="emergencyBank">Call my bank (card number route)</button>
+          <button id="emergency-trusted" type="button" data-i18n="emergencyTrusted">Tell my trusted contact</button>
+        </div>
+      </section>
+
+      <section id="trusted-contact-view" class="trusted-contact-view" hidden>
+        <a href="./" class="text-button" data-i18n="backAmanStep">← Back to AmanStep</a>
+        <div class="contact-shell">
+          <p class="eyebrow" data-i18n="demoInbox">Trusted contact demo inbox</p>
+          <h1 data-i18n="claimTitle">Accept a trusted-contact invitation</h1>
+          <p data-i18n="claimBody">Enter the code your family member gave you. Claiming does not activate alerts until they confirm you again.</p>
+          <form id="claim-form" class="claim-form">
+            <label><span data-i18n="inviteLabel">8-character invite code</span><input id="invite-code" maxlength="8" autocomplete="off" required /></label>
+            <label><span data-i18n="aliasLabel">How they identify you</span><input id="contact-alias" maxlength="40" placeholder="My daughter" required /></label>
+            <label class="consent-check"><input id="contact-consent" type="checkbox" required /> <span data-i18n="contactConsent">I freely choose to accept. This does not let anyone monitor a phone, messages, or location.</span></label>
+            <button type="submit" class="primary" data-i18n="acceptInvite">Accept invitation</button>
+          </form>
+          <p id="claim-status" class="status" role="status" aria-live="polite"></p>
+          <div id="contact-inbox" hidden>
+            <div class="inbox-heading">
+              <h2 data-i18n="inboxHeading">Your private inbox</h2>
+              <div class="trusted-actions">
+                <button id="refresh-inbox" type="button" class="secondary small" data-i18n="refreshInbox">Refresh</button>
+                <button id="remove-contact-device" type="button" class="secondary small" data-i18n="removeThisDevice">Remove this device and revoke access</button>
+              </div>
+            </div>
+            <div id="inbox-alerts" class="inbox-alerts"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <nav class="footer-nav" aria-label="Trust and contact">
+        <a href="about.html" data-i18n="aboutLink">About · عن التطبيق</a>
+        <a href="privacy.html" data-i18n="privacyLink">Privacy · الخصوصية</a>
+        <a href="terms.html" data-i18n="termsLink">Terms · الشروط</a>
+        <a href="contact.html" data-i18n="contactLink">Contact · تواصل</a>
+      </nav>
+      <p data-i18n="footer">Independent decision support. Not affiliated with Dubai Police, TDRA, CBUAE, or any bank.</p>
+      <p class="build-stamp">Prototype build cf51de2412bb, not affiliated with any government body or bank.</p>
+    </footer>
+    <template id="shared-payload"></template>
+    <dialog id="money-dialog" class="choice-dialog">
+      <form method="dialog">
+        <button class="dialog-close" value="cancel" aria-label="Close">×</button>
+        <h2 data-i18n="moneyDialogTitle">How did the money move?</h2>
+        <p data-i18n="moneyDialogBody">This changes the first recovery action.</p>
+        <button type="button" class="choice-button" data-payment-type="bank_transfer" data-i18n="bankTransferChoice">Bank transfer</button>
+        <button type="button" class="choice-button" data-payment-type="card_payment" data-i18n="cardChoice">Card payment or card charged</button>
+        <button type="button" class="choice-button" data-payment-type="crypto_transfer" data-i18n="cryptoChoice">Crypto transfer</button>
+        <button type="button" class="choice-button" data-payment-type="gift_card" data-i18n="giftCardChoice">Gift card or voucher code</button>
+      </form>
+    </dialog>
+    <dialog id="exposure-dialog" class="choice-dialog">
+      <form method="dialog">
+        <button class="dialog-close" value="cancel" aria-label="Close">×</button>
+        <h2 data-i18n="exposureDialogTitle">What was exposed?</h2>
+        <p data-i18n="exposureDialogBody">Choose the closest option so containment starts correctly.</p>
+        <button type="button" class="choice-button" data-exposure-type="credentials_or_otp" data-intake-exposure="otp_or_code" data-i18n="credentialsChoice">Password, OTP, card detail, or UAE Pass approval</button>
+        <button type="button" class="choice-button" data-exposure-type="credentials_or_otp" data-intake-exposure="app_approval" data-i18n="approvalChoice">I approved a bank-app or UAE Pass request</button>
+        <button type="button" class="choice-button" data-exposure-type="apk_installed" data-intake-exposure="remote_access" data-i18n="remoteChoice">Screen share or remote access</button>
+        <button type="button" class="choice-button" data-exposure-type="apk_installed" data-intake-exposure="unknown_app" data-i18n="appChoice">Unknown app or APK</button>
+      </form>
+    </dialog>
+    <dialog id="bank-outcome-dialog" class="choice-dialog">
+      <form id="bank-outcome-form">
+        <button class="dialog-close" type="button" aria-label="Close" data-close-dialog>×</button>
+        <h2 data-i18n="bankOutcomeTitle">What happened when you contacted the bank?</h2>
+        <p data-i18n="bankOutcomeBody">Record the real result. The bank step is completed only if you reached the bank.</p>
+        <fieldset class="outcome-choices">
+          <legend class="sr-only" data-i18n="bankOutcomeTitle">What happened when you contacted the bank?</legend>
+          <label><input type="radio" name="bank-outcome" value="reached" required /> <span data-i18n="bankReached">I reached the bank</span></label>
+          <label><input type="radio" name="bank-outcome" value="pending" /> <span data-i18n="bankPending">I am waiting for the bank</span></label>
+          <label><input type="radio" name="bank-outcome" value="unable" /> <span data-i18n="bankUnable">I could not reach the bank</span></label>
+        </fieldset>
+        <label class="outcome-reference">
+          <span data-i18n="bankReferenceLabel">Bank case or call reference (optional)</span>
+          <input id="bank-outcome-reference" type="text" maxlength="80" autocomplete="off" data-i18n-placeholder="bankReferencePlaceholder" />
+        </label>
+        <p id="bank-outcome-status" class="status" role="status" aria-live="polite"></p>
+        <button type="submit" class="primary" data-i18n="saveBankOutcome">Save bank outcome</button>
+      </form>
+    </dialog>
+    <dialog id="vault-delete-dialog" class="choice-dialog">
+      <form method="dialog">
+        <button class="dialog-close" value="cancel" aria-label="Close">×</button>
+        <h2 data-i18n="vaultDeleteTitle">Delete this case from this device?</h2>
+        <p data-i18n="vaultDeleteBody">This removes both the encrypted saved case and the temporary working copy. AmanStep cannot restore them.</p>
+        <div class="dialog-actions">
+          <button value="cancel" class="secondary" data-i18n="vaultCancelDelete">Keep case</button>
+          <button id="vault-confirm-delete" value="confirm" class="primary danger-button" data-i18n="vaultConfirmDelete">Delete permanently</button>
+        </div>
+      </form>
+    </dialog>
+    <script src="runtime-policies.js" defer></script>
+    <script src="engine/paths.js?v=1" defer></script>
+    <script src="engine/bundle.js?v=3" defer></script>
+    <script src="engine/risk.js?v=1" defer></script>
+    <script src="engine/case.js?v=6" defer></script>
+    <script src="engine/safety.js?v=1" defer></script>
+    <script src="engine/agent.js?v=1" defer></script>
+    <script src="engine/trace.js?v=1" defer></script>
+    <script src="engine/action-feed.js?v=4" defer></script>
+    <script src="engine/trust-map.js?v=1" defer></script>
+    <script src="engine/intake.js?v=1" defer></script>
+    <script src="engine/qwen.js?v=2" defer></script>
+    <script src="engine/redact.js?v=1" defer></script>
+    <script src="engine/ask.js?v=2" defer></script>
+    <script src="engine/trusted-store.js?v=1" defer></script>
+    <script src="engine/followups.js?v=1" defer></script>
+    <script src="engine/vault.js?v=3" defer></script>
+    <script src="app.js?v=45" defer></script>
+  </body>
+</html>

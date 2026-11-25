@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#073b3a" />
+    <meta name="description" content="AmanStep prototype privacy notice" />
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=29" />
+    <title>Privacy notice — AmanStep</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="topbar legal-topbar">
+      <a class="brand" href="./" aria-label="AmanStep home"><img src="icon.svg" alt="" width="42" height="42" /><div><strong>AmanStep</strong><span>Privacy notice · إشعار الخصوصية</span></div></a>
+    </header>
+    <main id="main-content" class="legal-page" tabindex="-1">
+      <section class="legal-hero">
+        <p class="eyebrow">Public competition prototype</p>
+        <h1>Privacy notice</h1>
+        <p>Last updated 24 November 2026. This notice describes the current public static prototype, not a future bank, police or production relay.</p>
+      </section>
+      <section class="legal-card" lang="en">
+        <h2>The short version</h2>
+        <p>Your pasted or shared suspicious message is analysed in your browser. AmanStep does not add it to the saved case, send it to its server, open its links or use analytics. Nothing is reported automatically.</p>
+        <h2>What stays on this device</h2>
+        <ul>
+          <li>The structured safety plan—stage, reason codes, tasks, closed recovery choices and reviewed source references—is stored in browser storage for up to four hours.</li>
+          <li>If you explicitly choose “Encrypt and save,” the same structured case is encrypted on this device with AES-GCM and a key derived from your passphrase. AmanStep can open it for 30 days and deletes it the first time you open AmanStep after that; a backup file you download stays wherever you keep it until you delete it. The passphrase and key are not stored or sent, and cannot be recovered by AmanStep. The encrypted backup contains no readable case text without that passphrase.</li>
+          <li>The service worker caches application code, tested policies and the last verified guidance bundle for offline use.</li>
+          <li>An evidence draft contains only fields you choose to enter. It is previewed and downloaded locally; AmanStep does not submit it.</li>
+          <li>If you enable local follow-ups, the browser stores only a closed reminder kind, related task id, language and due time until you dismiss it or turn reminders off. It never stores custom notification text.</li>
+          <li>If you enable Trusted Contact, the random owner or contact credential is kept in this site's IndexedDB until it expires, you remove this device, or you clear site data. It cannot be recovered after browser storage is cleared.</li>
+        </ul>
+        <h2>Private AI experiment</h2>
+        <p>AmanStep does not currently download or run a language model in the product. A controlled WebGPU phone test was too slow and missed the fixed task gate, so the experiment is off. The local policy and reviewed-source plan remain available without a model.</p>
+        <p>The next agent design is still under test: it would send only an explicitly approved, device-redacted version to our self-hosted open model. That network path is not a capability of this public build and will not be enabled until its privacy and safety gates pass.</p>
+        <h2>What the public static prototype sends</h2>
+        <p>It has no message or case API, account, tracking cookie or analytics SDK. Trusted Contact is unavailable unless this build explicitly identifies a separate relay; that relay accepts only pairing tokens, a contact alias of up to 40 characters, consent scopes, an alert type and an opaque case reference—not the suspicious message or case. Its host also sees ordinary network metadata such as your IP address. Following an official-source link or the GitHub contact link takes you to that third party under its own privacy terms.</p>
+        <h2>Your controls</h2>
+        <p>“Delete saved case” removes the encrypted case, its temporary working copy and local case reminders. Close the case to remove only its active local record. “Turn off and clear reminders” removes every pending local follow-up. “Remove this device” asks the relay to revoke the pairing and then deletes the local credential; if the relay already rejects an expired credential, the local copy is still removed. You can also clear this site's browser data to remove cached application/model files and local storage. Do not paste passwords, OTPs, PINs, CVVs, private keys or full card/account numbers.</p>
+      </section>
+      <section class="legal-card arabic-copy" lang="ar" dir="rtl">
+        <h2>الخلاصة</h2>
+        <p>تُحلَّل الرسالة المشبوهة التي تلصقها أو تشاركها داخل متصفحك. لا تضيف أمان ستيب الرسالة إلى الحالة المحفوظة، ولا ترسلها إلى خادم، ولا تفتح روابطها، ولا تستخدم أدوات تحليلات. لا يُرسل أي بلاغ تلقائياً.</p>
+        <h2>ما يبقى على هذا الجهاز</h2>
+        <ul>
+          <li>تُحفظ خطة الأمان المنظمة—المرحلة ورموز الأسباب والمهام وخيارات التعافي المغلقة ومراجع المصادر—في المتصفح لمدة تصل إلى أربع ساعات.</li>
+          <li>إذا اخترت صراحةً «شفّر واحفظ»، تُشفّر الحالة المنظمة نفسها على هذا الجهاز باستخدام AES-GCM ومفتاح مشتق من عبارة المرور. يمكن لأمان ستيب فتحها لمدة 30 يوماً، وتحذفها أول مرة تفتح فيها أمان ستيب بعد ذلك؛ أما ملف النسخة الاحتياطية الذي تنزّله فيبقى حيث تحفظه حتى تحذفه. لا تُحفظ عبارة المرور أو المفتاح ولا يُرسلان، ولا تستطيع أمان ستيب استعادتهما. لا تتضمن النسخة الاحتياطية المشفرة نص حالة مقروءاً من دون عبارة المرور.</li>
+          <li>يحفظ عامل الخدمة كود التطبيق والسياسات المختبرة وآخر حزمة إرشادات موثقة للعمل دون اتصال.</li>
+          <li>تتضمن مسودة الأدلة الحقول التي تختار إدخالها فقط، وتُعاين وتُنزّل محلياً ولا تُرسلها أمان ستيب.</li>
+          <li>إذا فعّلت المتابعات المحلية، لا يحفظ المتصفح سوى نوع تذكير مغلق ومعرّف المهمة واللغة ووقت الاستحقاق حتى تتجاهله أو توقف التذكيرات. لا يُحفظ نص إشعار مخصص.</li>
+          <li>إذا فعّلت جهة الاتصال الموثوقة، يُحفظ رمز المالك أو جهة الاتصال العشوائي في IndexedDB لهذا الموقع حتى تنتهي صلاحيته أو تزيل هذا الجهاز أو تمسح بيانات الموقع. لا يمكن استعادته بعد مسح بيانات المتصفح.</li>
+        </ul>
+        <h2>تجربة الذكاء الخاص</h2>
+        <p>لا تنزّل أمان ستيب حالياً نموذجاً لغوياً ولا تشغّله داخل المنتج. كان اختبار WebGPU مضبوط على هاتف بطيئاً وفشل في بوابة المهام المحددة، لذلك أُوقفت التجربة. تبقى السياسة المحلية وخطة المصادر المراجعة متاحتين دون نموذج.</p>
+        <p>ما زال تصميم الوكيل التالي قيد الاختبار: لن يرسل إلى نموذجنا المفتوح المستضاف ذاتياً إلا نسخة منقحة على الجهاز وبعد موافقة صريحة. هذا المسار الشبكي ليس ميزة في هذا الإصدار العام ولن يُفعّل قبل اجتياز بوابات الخصوصية والسلامة.</p>
+        <h2>ما يرسله النموذج العام الثابت</h2>
+        <p>لا توجد فيه واجهة لاستقبال الرسائل أو الحالات، ولا حسابات أو ملفات تتبع أو أدوات تحليلات. لا تتاح جهة الاتصال الموثوقة إلا إذا حدد الإصدار خدمة ترحيل منفصلة؛ ولا تقبل تلك الخدمة سوى رموز الربط واسم مستعار لا يتجاوز 40 حرفاً ونطاقات الموافقة ونوع التنبيه ومرجع حالة مبهم، وليس الرسالة أو الحالة. يرى مضيف الخدمة أيضاً بيانات الشبكة المعتادة مثل عنوان IP. فتح رابط مصدر رسمي أو رابط GitHub ينقلك إلى طرف ثالث يخضع لشروطه.</p>
+        <h2>خياراتك</h2>
+        <p>أغلق الحالة لحذف سجلها المحلي النشط. يمسح زر «إيقاف التذكيرات ومسحها» كل متابعة محلية معلقة. يطلب زر «إزالة هذا الجهاز» من خدمة الترحيل إلغاء الربط ثم يحذف الرمز المحلي؛ وإذا رفضت الخدمة رمزاً منتهياً، تُحذف النسخة المحلية أيضاً. يمكنك كذلك مسح بيانات الموقع من المتصفح. لا تُدخل كلمات المرور أو رموز OTP أو PIN أو CVV أو المفاتيح الخاصة أو أرقام البطاقات والحسابات الكاملة.</p>
+      </section>
+    </main>
+    <footer class="legal-footer"><nav aria-label="Trust pages"><a href="./">AmanStep</a><a href="about.html">About · عن التطبيق</a><a href="terms.html">Terms · الشروط</a><a href="contact.html">Contact · تواصل</a></nav><p>Independent decision support. Not affiliated with any government body or bank.</p></footer>
+  </body>
+</html>

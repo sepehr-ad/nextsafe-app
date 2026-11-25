@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval' blob: https://cdn.jsdelivr.net; style-src 'self'; connect-src 'self' https://cdn.jsdelivr.net https://huggingface.co https://*.huggingface.co https://*.hf.co https://*.xethub.hf.co; worker-src 'self' blob: https://cdn.jsdelivr.net; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>AI0 phone feasibility lab</title>
+    <link rel="stylesheet" href="ai0.css" />
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Private engineering gate · AI0</p>
+      <h1>Can useful AI run on this phone?</h1>
+      <p class="lede">
+        This unlisted test downloads public, pinned models and runs ten fixed
+        synthetic messages locally in your browser. It does not accept or send
+        your messages. Model hosting can still see ordinary download metadata,
+        such as your IP address.
+      </p>
+
+      <section class="gate" aria-labelledby="gate-title">
+        <h2 id="gate-title">Pass conditions</h2>
+        <ul>
+          <li>Required model files: 150 MB or less.</li>
+          <li>Each fixed message: 3 seconds or less on this phone.</li>
+          <li>Arabic output is not clearly wrong on 3 or more of 5 messages.</li>
+        </ul>
+      </section>
+
+      <section class="consent" aria-labelledby="before-title">
+        <h2 id="before-title">Before you start</h2>
+        <p>
+          Use Wi-Fi. Keep this tab open. The full three-model run may download
+          more than 400 MB because one deliberately oversized candidate is
+          included as a control. Cached models may make later runs faster.
+        </p>
+        <label>
+          <input id="consent" type="checkbox" />
+          I understand this is a benchmark using fixed synthetic text only.
+        </label>
+        <button id="run-all" type="button" disabled>Run all three candidates</button>
+        <p id="overall-status" class="status" role="status" aria-live="polite">
+          Waiting to start.
+        </p>
+      </section>
+
+      <section aria-labelledby="device-title">
+        <h2 id="device-title">This device</h2>
+        <dl id="device"></dl>
+      </section>
+
+      <section aria-labelledby="candidates-title">
+        <h2 id="candidates-title">Candidates</h2>
+        <div id="candidates" class="candidate-list"></div>
+      </section>
+
+      <section aria-labelledby="report-title">
+        <h2 id="report-title">Copy the complete report</h2>
+        <p>
+          When every candidate finishes or fails, copy this text and send it
+          back unchanged. A failure is evidence, not something to hide.
+        </p>
+        <button id="copy-report" type="button" disabled>Copy report</button>
+        <textarea id="report" rows="18" readonly spellcheck="false"></textarea>
+      </section>
+    </main>
+    <script type="module" src="ai0.js"></script>
+  </body>
+</html>
